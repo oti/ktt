@@ -1,8 +1,8 @@
-li
-  -
-    const splited = image.split("-")
-    const alt = `${splited[0]}年${Number(splited[1])}月${Number(splited[2])}日に食べたTKG写真`
-  dialog(id=`photo-${image}`)
+-
+  const splited = image.split("-")
+  const alt = `${splited[0]}年${Number(splited[1])}月${Number(splited[2])}日に食べたTKG写真`
+li(id=`photo-${image}`)
+  dialog(id=`dialog-${image}`)
     img(
       src=`/image/photo/${image}.jpg`,
       alt=alt,
@@ -12,7 +12,7 @@ li
     )
     button.close(type="button")
       include ./close.pug
-  button.thumb(type="button", data-dialog=`photo-${image}`)
+  button.thumb(type="button", data-dialog=`dialog-${image}`)
     img(
       src=`/image/photo/thumb_${image}.jpg`,
       alt=`${alt}のサムネール`,
