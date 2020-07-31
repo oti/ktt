@@ -1,3 +1,4 @@
+/* @refs https://github.com/GoogleChrome/dialog-polyfill/blob/master/dist/dialog-polyfill.css */
 dialog {
   position: absolute;
   left: 0;

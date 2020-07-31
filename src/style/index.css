@@ -127,6 +127,39 @@ button.more {
   background-color: var(--bgButton);
 }
 
+button.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  place-items: center;
+  padding: calc(var(--commonPad) / 2);
+  background-color: var(--bgButton);
+}
+
+button.close path {
+  fill: var(--textBase);
+}
+
+dialog {
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: var(--commonPad);
+  border-width: 0;
+  background-color: transparent;
+}
+
+dialog img {
+  border: var(--commonPad) solid transparent;
+  border-radius: 6px;
+  max-width: min(calc(100vw - (var(--commonPad) * 4)), 1280px);
+  max-height: min(calc(100vh - (var(--commonPad) * 4)), 960px);
+  aspect-ratio: attr(width) / attr(height);
+  object-fit: contain;
+  background-color: var(--bgBase);
+}
+
 section {
   margin-block-start: 5rem;
 }
