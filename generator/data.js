@@ -45,7 +45,7 @@ const generate_data_pug = () => {
   const recent = [recent1, recent2].filter((v) => v);
   const content = `-
   const recent = ${JSON.stringify(recent)}
-  const rest = ${JSON.stringify(rest)}`;
+  const rest = ${JSON.stringify(rest)}\n`;
 
   fs.writeFileSync(output, content, (err) => {
     if (err) throw err;
