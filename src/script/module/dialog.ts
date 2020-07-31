@@ -1,4 +1,4 @@
-export const showDialog = ({ target }) => {
+export const dialog = ({ target }) => {
   const selector = `#${target.dataset.dialog}`;
   const dialog = document.querySelector(selector) as HTMLDialogElement;
   dialog.showModal();
