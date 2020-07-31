@@ -11,7 +11,9 @@
     "update-data": "node generator/data.js",
     "update-photo": "node generator/photo.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dialog-polyfill": "^0.5.1"
+  },
   "devDependencies": {
     "@prettier/plugin-pug": "^1.5.0",
     "autoprefixer": "^9.8.0",
