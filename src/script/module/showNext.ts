@@ -1,3 +1,5 @@
+import { showDialog } from "./showDialog";
+
 // 次の template を表示する
 export const showNext = ({ target }) => {
   // 対象の template を取得する。
@@ -15,6 +17,10 @@ export const showNext = ({ target }) => {
   // template 要素を包含要素の末尾に挿入し、元の自分を削除する。
   $template.parentNode.insertBefore($template.content, $template);
   $template.parentNode.removeChild($template);
+
+  Array.from(document.querySelectorAll(".thumb")).forEach((button) =>
+    button.addEventListener("click", showDialog, false)
+  );
 
   // ボタンを隠す
   target.hidden = true;
