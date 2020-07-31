@@ -49,6 +49,7 @@ module.exports = {
     { name: "script" },
     { name: "style" },
     { name: "image" },
+    { name: "generator" },
     { name: "env" },
     { name: "doc" },
     { name: "_" }, // その他
