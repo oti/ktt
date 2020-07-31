@@ -39,6 +39,10 @@ a:active {
   text-underline-position: under;
 }
 
+:focus {
+  outline-offset: 2px;
+}
+
 /* button reset */
 button {
   margin: 0;
