@@ -6,6 +6,7 @@
   --shadow: #dbdbb1;
   --scorch: #554e3b;
 
+  --accent: var(--egg);
   --bgBase: var(--light);
   --textBase: var(--scorch);
   --textLink: var(--scorch);
@@ -67,9 +68,8 @@ svg {
   vertical-align: top;
 }
 
-svg path {
-  fill: var(--egg);
-  box-shadow: 0 0 0 1px var(--scorch);
+h1 path {
+  fill: var(--accent);
 }
 
 li {
