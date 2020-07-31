@@ -58,6 +58,8 @@ html(lang="ja")
     main
       include ./pug/data.pug
 
+      unless recent.length
+        p 食べたTKGはありません。
       each item, i in recent
         section.Recent
           h2= item.heading
