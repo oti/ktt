@@ -15,6 +15,14 @@
   --commonPad: 1rem;
   --mainWidth: 67.5rem;
   --bodyFontSize: 1.25rem;
+
+  --gridGap: calc(var(--commonPad) / 2);
+}
+
+@media (max-width: 1079px) {
+  :root {
+    --gridGap: calc(var(--commonPad) / 2.5);
+  }
 }
 
 *,
@@ -41,6 +49,7 @@ button {
   font: inherit;
   font-size: 1rem;
   line-height: normal;
+  vertical-align: top;
   background-color: transparent;
   overflow: visible;
   -webkit-font-smoothing: inherit;
@@ -96,8 +105,8 @@ li {
 
 ol {
   display: grid;
-  gap: var(--commonPad);
-  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  gap: var(--gridGap);
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
   margin: 0;
   padding: 0;
   width: 100%;
@@ -119,6 +128,8 @@ img {
 
 button img {
   pointer-events: none;
+  margin: auto;
+  max-width: 168px;
 }
 
 button.more {
