@@ -6,8 +6,8 @@
   "author": "oti",
   "license": "CC BY-NC 4.0",
   "scripts": {
-    "start": "npm run update-data && parcel src/index.pug --open --out-dir .cache",
-    "build": "npm run update-data && parcel build src/index.pug --no-source-maps --public-url ./",
+    "start": "parcel src/index.pug --open --out-dir .cache",
+    "build": "parcel build src/index.pug --no-source-maps --public-url ./",
     "update-data": "node generator/data.js",
     "update-photo": "node generator/photo.js"
   },
