@@ -1,0 +1,44 @@
+{
+  "private": true,
+  "name": "ktt",
+  "version": "0.1.0",
+  "description": "「今朝はTKGを食べました。」を一覧できるウェブサイト",
+  "author": "oti",
+  "license": "CC BY-NC 4.0",
+  "scripts": {
+    "start": "parcel src/index.pug --open --out-dir .cache",
+    "build": "parcel build src/index.pug --no-source-maps --public-url ./"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5"
+  },
+  "devDependencies": {
+    "@prettier/plugin-pug": "^1.5.0",
+    "autoprefixer": "^9.8.0",
+    "commitizen": "^4.1.2",
+    "cz-customizable": "^6.2.0",
+    "husky": "^4.2.5",
+    "imagemin": "^7.0.1",
+    "imagemin-jpegtran": "^7.0.0",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "pug": "^2.0.4",
+    "sharp": "^0.25.4",
+    "typescript": "^3.9.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./.cz-config.js"
+    }
+  }
+}
