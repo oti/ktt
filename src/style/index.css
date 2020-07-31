@@ -1,7 +1,137 @@
 @charset "UTF-8";
 
+:root {
+  --light: #f6f6f4;
+  --egg: #ffbb00;
+  --shadow: #dbdbb1;
+  --scorch: #554e3b;
+
+  --bgBase: var(--light);
+  --textBase: var(--scorch);
+  --textLink: var(--scorch);
+  --bgButton: var(--egg);
+
+  --commonPad: 1rem;
+  --mainWidth: 67.5rem;
+  --bodyFontSize: 1.25rem;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: var(--textLink);
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
+}
+
+html {
+  color: var(--textBase);
+  background-color: var(--bgBase);
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  padding-inline-start: var(--commonPad);
+  padding-inline-end: var(--commonPad);
+  max-width: var(--mainWidth);
+  width: 100%;
+  min-height: 100vh;
+  font-size: var(--bodyFontSize);
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+hgroup {
+  margin-block-start: 2rem;
+}
+
+hgroup h2 {
+  font-size: var(--bodyFontSize);
+  font-weight: normal;
+}
+
+svg {
+  vertical-align: top;
+}
+
+svg path {
+  fill: var(--egg);
+  box-shadow: 0 0 0 1px var(--scorch);
+}
+
+li {
+  list-style-type: none;
+}
+
+ol {
+  display: grid;
+  gap: var(--commonPad);
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+ol + p {
+  margin-block-start: 1.5em;
+}
+
+picture {
+  width: 100%;
+}
+
+img {
+  width: 100%;
+  border-radius: 6px;
+  vertical-align: top;
+}
+
+button img {
+  pointer-events: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  width: auto;
+  color: inherit;
+  font: inherit;
+  font-size: 1rem;
+  line-height: normal;
+  background-color: transparent;
+  overflow: visible;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+}
+
+button.next,
+button.close {
+  margin-block-start: 1em;
+  padding: calc(var(--commonPad) / 2) calc(var(--commonPad));
+  background-color: var(--bgButton);
+}
+
+section {
+  margin-block-start: 5rem;
+}
+
+footer {
+  margin-block-start: 5rem;
+  padding-block-end: var(--commonPad);
 }
