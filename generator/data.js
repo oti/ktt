@@ -42,10 +42,10 @@ const generate_data_pug = () => {
   });
 
   const [recent1, recent2, ...rest] = data;
-  const content = `- const recent = ${JSON.stringify([
-    recent1,
-    recent2,
-  ])}\n  const rest = ${JSON.stringify(rest)}`;
+  const recent = [recent1, recent2].filter((v) => v);
+  const content = `-
+  const recent = ${JSON.stringify(recent)}
+  const rest = ${JSON.stringify(rest)}`;
 
   fs.writeFileSync(output, content, (err) => {
     if (err) throw err;
