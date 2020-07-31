@@ -11,9 +11,7 @@
     "update-data": "node generator/data.js",
     "update-photo": "node generator/photo.js"
   },
-  "dependencies": {
-    "core-js": "^3.6.5"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@prettier/plugin-pug": "^1.5.0",
     "autoprefixer": "^9.8.0",
