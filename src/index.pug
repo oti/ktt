@@ -48,7 +48,7 @@ html(lang="ja")
               include ./pug/listitem.pug
 
           if i === recent.length - 1
-            button.next(type="button")= `${rest[0].heading}のTKGを表示`
+            button.more(type="button")= `${rest[0].heading}のTKGを表示`
 
       each item, i in rest
         template.Past
@@ -59,7 +59,7 @@ html(lang="ja")
                 include ./pug/listitem.pug
 
             if rest[i+1]
-              button.next(type="button")= `${rest[i + 1].heading}のTKGを表示`
+              button.more(type="button")= `${rest[i + 1].heading}のTKGを表示`
             else
               p これより過去のTKGはありません。
 

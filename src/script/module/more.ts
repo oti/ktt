@@ -9,7 +9,7 @@ export const more = ({ target }) => {
   // ただし template はあってもボタンは存在しない場合がある。
   const $button =
     $template &&
-    ($template.content.querySelector(".next") as HTMLButtonElement);
+    ($template.content.querySelector(".more") as HTMLButtonElement);
 
   // ボタンにイベントハンドラを設定する
   if ($button) $button.addEventListener("click", more, false);
