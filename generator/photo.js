@@ -32,8 +32,8 @@ const convertThumb = () => {
     const fileBasename = image.split(" ")[0];
 
     sharp(`${inputDir}${image}`)
-      .resize({ width: 125, height: 125, fit: "cover" })
-      .jpeg({ quality: 50 })
+      .resize({ width: 336, height: 336, fit: "cover" })
+      .jpeg({ quality: 30 })
       .toFile(`${outputDir}thumb_${fileBasename}.jpg`)
       .then(() => {
         console.log(`${outputDir}thumb_${fileBasename}.jpg has been saved!`);
