@@ -52,6 +52,55 @@ html(lang="ja")
       h2 今朝はTKGを食べました。
 
     main
+      include ./pug/data.pug
+
+      each item, i in recent
+        section.Recent
+          h2= item.heading
+          ol
+            each image in item.images
+              li
+                dialog(id=`photo-${image}`)
+                  img(
+                    src=`/image/photo/${image}.jpg`,
+                    alt=image,
+                    loading="lazy"
+                  )
+                  button.close(type="button") 閉じる
+                button.thumb(type="button", data-dialog=`photo-${image}`)
+                  img(
+                    src=`/image/photo/thumb_${image}.jpg`,
+                    alt=image,
+                    loading="lazy"
+                  )
+
+          if i === recent.length - 1
+            button.next(type="button")= `${rest[0].heading}のTKGを表示`
+
+      each item, i in rest
+        template.Past
+          section
+            h2= item.heading
+            ol
+              each image in item.images
+                li
+                  dialog(id=`photo-${image}`)
+                    img(
+                      src=`/image/photo/${image}.jpg`,
+                      alt=image,
+                      loading="lazy"
+                    )
+                    button.close(type="button") 閉じる
+                  button.thumb(type="button", data-dialog=`photo-${image}`)
+                    img(
+                      src=`/image/photo/thumb_${image}.jpg`,
+                      alt=image,
+                      loading="lazy"
+                    )
+            if rest[i+1]
+              button.next(type="button")= `${rest[i + 1].heading}のTKGを表示`
+            else
+              p これより過去のTKGはありません。
 
     footer
       small
