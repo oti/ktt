@@ -30,6 +30,24 @@ a:active {
   color: var(--textLink);
 }
 
+/* button reset */
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  width: auto;
+  color: inherit;
+  font: inherit;
+  font-size: 1rem;
+  line-height: normal;
+  background-color: transparent;
+  overflow: visible;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+}
+
 html,
 body {
   margin: 0;
@@ -103,25 +121,7 @@ button img {
   pointer-events: none;
 }
 
-button {
-  margin: 0;
-  padding: 0;
-  border: none;
-  border-radius: 6px;
-  width: auto;
-  color: inherit;
-  font: inherit;
-  font-size: 1rem;
-  line-height: normal;
-  background-color: transparent;
-  overflow: visible;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-}
-
-button.next,
-button.close {
+button.more {
   margin-block-start: 1em;
   padding: calc(var(--commonPad) / 2) calc(var(--commonPad));
   background-color: var(--bgButton);
