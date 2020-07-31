@@ -45,20 +45,7 @@ html(lang="ja")
           h2= item.heading
           ol
             each image in item.images
-              li
-                dialog(id=`photo-${image}`)
-                  img(
-                    src=`/image/photo/${image}.jpg`,
-                    alt=image,
-                    loading="lazy"
-                  )
-                  button.close(type="button") 閉じる
-                button.thumb(type="button", data-dialog=`photo-${image}`)
-                  img(
-                    src=`/image/photo/thumb_${image}.jpg`,
-                    alt=image,
-                    loading="lazy"
-                  )
+              include ./pug/listitem.pug
 
           if i === recent.length - 1
             button.next(type="button")= `${rest[0].heading}のTKGを表示`
@@ -69,20 +56,8 @@ html(lang="ja")
             h2= item.heading
             ol
               each image in item.images
-                li
-                  dialog(id=`photo-${image}`)
-                    img(
-                      src=`/image/photo/${image}.jpg`,
-                      alt=image,
-                      loading="lazy"
-                    )
-                    button.close(type="button") 閉じる
-                  button.thumb(type="button", data-dialog=`photo-${image}`)
-                    img(
-                      src=`/image/photo/thumb_${image}.jpg`,
-                      alt=image,
-                      loading="lazy"
-                    )
+                include ./pug/listitem.pug
+
             if rest[i+1]
               button.next(type="button")= `${rest[i + 1].heading}のTKGを表示`
             else

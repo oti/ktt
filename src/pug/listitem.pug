@@ -1,0 +1,22 @@
+li
+  -
+    const splited = image.split("-")
+    const alt = `${splited[0]}年${Number(splited[1])}月${Number(splited[2])}日に食べたTKG写真`
+  dialog(id=`photo-${image}`)
+    img(
+      src=`/image/photo/${image}.jpg`,
+      alt=alt,
+      loading="lazy",
+      width="1280",
+      height="960"
+    )
+    button.close(type="button")
+      include ./close.pug
+  button.thumb(type="button", data-dialog=`photo-${image}`)
+    img(
+      src=`/image/photo/thumb_${image}.jpg`,
+      alt=`${alt}のサムネール`,
+      loading="lazy",
+      width="125",
+      height="125"
+    )
