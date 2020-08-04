@@ -87,6 +87,10 @@ body {
   font-family: "Noto Sans JP", sans-serif;
 }
 
+body.all {
+  grid-template-rows: auto auto 1fr auto;
+}
+
 hgroup {
   margin-block-start: 2rem;
 }
