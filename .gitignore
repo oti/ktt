@@ -1,6 +1,6 @@
+.cache
+.DS_Store
+.tmp
 dist
 node_modules
 photo-original
-.cache
-.tmp
-.DS_Store
