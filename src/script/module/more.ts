@@ -12,7 +12,7 @@ export const more = ({ target }) => {
     ($template.content.querySelector(".more") as HTMLButtonElement);
 
   // ボタンにイベントハンドラを設定する
-  if ($button) $button.addEventListener("click", more, false);
+  $button && $button.addEventListener("click", more, false);
 
   // template 要素を包含要素の末尾に挿入し、元の自分を削除する。
   $template.parentNode.insertBefore($template.content, $template);
