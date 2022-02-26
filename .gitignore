@@ -1,6 +1,5 @@
-.cache
 .DS_Store
-.tmp
+.parcel-cache
 dist
 node_modules
 photo-original
