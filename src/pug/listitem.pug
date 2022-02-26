@@ -4,7 +4,7 @@
 li(id=`photo-${image}`)
   dialog(id=`dialog-${image}`)
     img(
-      src=`/image/photo/${image}.jpg`,
+      src=`./image/photo/${image}.jpg`,
       alt=alt,
       loading="lazy",
       width="1280",
@@ -14,7 +14,7 @@ li(id=`photo-${image}`)
       include ./close.pug
   button.thumb(type="button", data-dialog=`dialog-${image}`)
     img(
-      src=`/image/photo/thumb_${image}.jpg`,
+      src=`./image/photo/thumb_${image}.jpg`,
       alt=`${alt}のサムネール`,
       loading="lazy",
       width="168",
