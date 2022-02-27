@@ -10,7 +10,6 @@
   --bgBase: var(--light);
   --textBase: var(--scorch);
   --textLink: var(--scorch);
-  --bgButton: var(--egg);
 
   --commonPad: 1rem;
   --mainWidth: 67.5rem;
@@ -39,29 +38,6 @@ a:active {
   text-underline-position: under;
 }
 
-:focus {
-  outline-offset: 2px;
-}
-
-/* button reset */
-button {
-  margin: 0;
-  padding: 0;
-  border: none;
-  border-radius: 6px;
-  width: auto;
-  color: inherit;
-  font: inherit;
-  font-size: 1rem;
-  line-height: normal;
-  vertical-align: top;
-  background-color: transparent;
-  overflow: visible;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-}
-
 html,
 body {
   margin: 0;
@@ -87,10 +63,6 @@ body {
   font-family: "Noto Sans JP", sans-serif;
 }
 
-body.all {
-  grid-template-rows: auto auto 1fr auto;
-}
-
 hgroup {
   margin-block-start: 2rem;
 }
@@ -108,57 +80,10 @@ h1 path {
   fill: var(--accent);
 }
 
-li {
-  list-style-type: none;
-}
-
-ol {
-  display: grid;
-  gap: var(--gridGap);
-  grid-template-columns: repeat(auto-fill, 168px);
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-ol + p {
-  margin-block-start: 1.5em;
-}
-
-picture {
-  width: 100%;
-}
-
 img {
   width: 100%;
   border-radius: 6px;
   vertical-align: top;
-}
-
-button img {
-  pointer-events: none;
-  margin: auto;
-  max-width: 168px;
-}
-
-button.more {
-  margin-block-start: 1em;
-  padding: calc(var(--commonPad) / 2) calc(var(--commonPad));
-  background-color: var(--bgButton);
-}
-
-button.close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  place-items: center;
-  padding: calc(var(--commonPad) / 2);
-  background-color: var(--bgButton);
-}
-
-button.close path {
-  fill: var(--textBase);
 }
 
 section {
