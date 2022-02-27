@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "ktt",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "「今朝はTKGを食べました」を一覧できるウェブサイト",
   "author": "oti",
   "license": "CC BY-NC 4.0",
