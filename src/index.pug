@@ -43,11 +43,19 @@ html(lang="ja")
       unless items.length
         p 食べたTKGはありません。
       each item, i in items
-        section.Recent
+        section
           h2= item.heading
-          ol
+          .grid
             each image in item.images
-              include ./pug/listitem.pug
+              - const [year, month, day] = image.split("-");
+              a.thumb(href=`./image/photo/${image}.jpg`, id=`photo-${image}`)
+                img(
+                  src=`./image/photo/thumb_${image}.jpg`,
+                  alt=`${year}年${Number(month)}月${Number(day)}日に食べたTKG写真のサムネール`,
+                  loading="lazy",
+                  width="168",
+                  height="168"
+                )
       p
         a(href="#top") ページの先頭へ
 
