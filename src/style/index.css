@@ -49,6 +49,12 @@ html {
   background-color: var(--bgBase);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   display: grid;
   grid-template-rows: auto 1fr auto;
