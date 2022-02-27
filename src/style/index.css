@@ -57,7 +57,7 @@ html {
 
 body {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
   margin-inline-start: auto;
   margin-inline-end: auto;
   padding-inline-start: var(--commonPad);
@@ -69,11 +69,15 @@ body {
   font-family: "Noto Sans JP", sans-serif;
 }
 
-hgroup {
+h1 {
   margin-block-start: 2rem;
 }
 
-hgroup h2 {
+h1 path {
+  fill: var(--accent);
+}
+
+h1 + p {
   font-size: var(--bodyFontSize);
   font-weight: normal;
 }
@@ -82,13 +86,9 @@ svg {
   vertical-align: top;
 }
 
-h1 path {
-  fill: var(--accent);
-}
-
 img {
   width: 100%;
-  border-radius: 3px;
+  border-radius: 0.5rem;
   vertical-align: top;
 }
 
