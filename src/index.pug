@@ -38,34 +38,16 @@ html(lang="ja")
 
     main
       include ./pug/data.pug
+      - const items = [...recent, ...rest];
 
-      unless recent.length
+      unless items.length
         p 食べたTKGはありません。
-      each item, i in recent
+      each item, i in items
         section.Recent
           h2= item.heading
           ol
             each image in item.images
               include ./pug/listitem.pug
-
-          if i === recent.length - 1
-            button.more(type="button")= `${rest[0].heading}のTKGを表示`
-
-      each item, i in rest
-        template.Past
-          section
-            h2= item.heading
-            ol
-              each image in item.images
-                include ./pug/listitem.pug
-
-            if rest[i+1]
-              button.more(type="button")= `${rest[i + 1].heading}のTKGを表示`
-            else
-              p 今朝食べたTKGはこれで全部です。
-
-      //- p
-        a.all(href="./all.pug") 全て表示する
       p
         a(href="#top") ページの先頭へ
 
