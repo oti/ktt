@@ -169,3 +169,12 @@ footer {
   margin-block-start: 5rem;
   padding-block-end: var(--commonPad);
 }
+
+.grid {
+  display: grid;
+  gap: var(--gridGap);
+  grid-template-columns: repeat(auto-fill, 168px);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
