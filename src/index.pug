@@ -42,8 +42,12 @@ html(lang="ja")
       unless items.length
         p 食べたTKGはありません。
       each item, i in items
-        section
-          h2= item.heading
+        -
+          const [year, month, _] = item.images[0].split("-")
+          const id = `list-${year}-${month}`
+        section(id=id)
+          h2
+            a(href=`#${id}`)= item.heading
           .grid
             each image in item.images
               - const [year, month, day] = image.split("-");
