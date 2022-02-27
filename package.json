@@ -10,7 +10,7 @@
     "lint-css": "stylelint dist/*.css",
     "lint-html": "markuplint dist/*.html --ruleset ./markuplintrc",
     "prettier": "prettier --write .",
-    "start": "parcel src/*.pug --open",
+    "start": "parcel src/index.pug --open",
     "test": "npm run lint-css & npm run lint-html & npm run validate-html",
     "validate-html": "html-validator --file=dist/index.html --verbose",
     "prepare": "husky install",
@@ -18,32 +18,19 @@
     "update-photo": "node generator/photo.js"
   },
   "devDependencies": {
-    "@prettier/plugin-pug": "^1.13.3",
-    "autoprefixer": "^9.8.6",
-    "commitizen": "^4.2.3",
-    "cz-customizable": "^6.3.0",
-    "husky": "^4.3.8",
-    "imagemin": "^7.0.1",
-    "imagemin-jpegtran": "^7.0.0",
-    "parcel-bundler": "^1.12.4",
-    "prettier": "^2.2.1",
-    "pretty-quick": "^3.1.0",
-    "pug": "^3.0.1",
-    "sharp": "^0.27.1",
-    "typescript": "^4.1.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": "./.cz-config.js"
-    }
+    "@parcel/transformer-pug": "^2.2.1",
+    "@prettier/plugin-pug": "^1.19.2",
+    "autoprefixer": "^10.4.2",
+    "html-validator-cli": "^7.0.1",
+    "husky": "^7.0.4",
+    "markuplint": "^1.11.4",
+    "parcel": "^2.2.1",
+    "prettier": "^2.5.1",
+    "pretty-quick": "^3.1.3",
+    "pug": "^3.0.2",
+    "sass": "^1.49.7",
+    "sharp": "^0.30.1",
+    "stylelint": "^14.3.0",
+    "stylelint-config-recommended": "^6.0.0"
   }
 }
