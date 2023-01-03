@@ -1,6 +1,4 @@
-"use strict";
-
-const fs = require("fs");
+import fs from "fs";
 const input = process.argv[2] || "src/image/photo/";
 const output = process.argv[3] || "src/pug/data.pug";
 
@@ -41,8 +39,8 @@ const generate_data_pug = () => {
     data[index].images.unshift(toBasename(image));
   });
 
-  const [recent1, recent2, ...rest] = data;
-  const recent = [recent1, recent2].filter((v) => v);
+  const [recent1, recent2, recent3, ...rest] = data;
+  const recent = [recent1, recent2, recent3].filter((v) => v);
   const content = `-
   const recent = ${JSON.stringify(recent)}
   const rest = ${JSON.stringify(rest)}\n`;
