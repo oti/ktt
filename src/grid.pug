@@ -1,0 +1,23 @@
+extends _template
+
+block main
+  include ./pug/data.pug
+  - const items = [...recent, ...rest];
+
+  unless items.length
+    p 食べたTKGはありません。
+  section
+    .grid
+      each item, i in items
+        each image in item.images
+          - const [year, month, day] = image.split("-");
+          a.thumb(href=`./image/photo/${image}.jpg`, id=`photo-${image}`)
+            img(
+              src=`./image/photo/thumb_${image}.jpg`,
+              alt=`${year}年${Number(month)}月${Number(day)}日に食べたTKG写真のサムネール`,
+              loading="lazy",
+              width="168",
+              height="168"
+            )
+  p.extra
+    a(href="/") インデックスへ戻る
