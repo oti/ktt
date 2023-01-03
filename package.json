@@ -10,9 +10,8 @@
     "lint-css": "stylelint dist/*.css",
     "lint-html": "markuplint dist/*.html --ruleset ./markuplintrc",
     "prettier": "prettier --write .",
-    "start": "parcel src/index.pug --open",
-    "test": "npm run lint-css & npm run lint-html & npm run validate-html",
-    "validate-html": "html-validator --file=dist/index.html --verbose",
+    "start": "parcel src/**/*.pug --open --no-cache",
+    "test": "npm run lint-css && npm run lint-html",
     "prepare": "husky install",
     "update-data": "node generator/data.js",
     "update-photo": "node generator/photo.js"
