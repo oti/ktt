@@ -99,7 +99,7 @@ body {
 }
 
 h1 {
-  margin-block-start: 2rem;
+  margin-block-start: calc(var(--commonPad) * 2);
 }
 
 h1 path {
@@ -122,11 +122,11 @@ img {
 }
 
 section {
-  margin-block-start: 5rem;
+  margin-block-start: calc(var(--commonPad) * 5);
 }
 
 footer {
-  margin-block-start: 5rem;
+  margin-block-start: calc(var(--commonPad) * 5);
   padding-block-end: var(--commonPad);
 }
 
