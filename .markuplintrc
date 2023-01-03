@@ -1,21 +1,31 @@
 {
   "rules": {
     "attr-duplication": true,
-    "attr-equal-space-after": true,
-    "attr-equal-space-before": true,
-    "attr-spacing": true,
-    "attr-value-quotes": true,
-    "character-reference": true,
     "deprecated-attr": true,
     "deprecated-element": true,
     "doctype": true,
     "id-duplication": true,
+    "ineffective-attr": true,
+    "invalid-attr": {
+      "options": {
+        "attrs": {
+          "parcel 同梱の htmlnano が、minifyuSvg=false にしても viewBox を viewbox にしてしまうため、どの型でも受け入れる設定とする": {
+            "type": "Any"
+          },
+          "viewbox": {
+            "type": "Any"
+          }
+        }
+      }
+    },
+    "label-has-control": true,
     "landmark-roles": {
-      "value": true,
-      "option": {
+      "options": {
         "ignoreRoles": ["complementary"]
       }
     },
+    "no-empty-palpable-content": true,
+    "no-refer-to-non-existent-id": true,
     "permitted-contents": true,
     "required-attr": true,
     "required-h1": true,
