@@ -1,69 +1,30 @@
-doctype html
-html(lang="ja")
-  head
-    meta(charset="UTF-8")
-    title ktt -今朝はTKGを食べました-
-    meta(name="viewport", content="width=device-width,initial-scale=1.0")
-    meta(name="description", content="今朝はTKGを食べました")
-    meta(name="keywords", content="oti,otiext,tkg,今朝はTKGを食べました")
-    meta(property="og:title", content="ktt")
-    meta(property="og:type", content="website")
-    meta(property="og:url", content="https://tkg.dskd.jp")
-    meta(property="og:image", content="./image/og-image.png")
-    meta(property="og:image:width", content="1280")
-    meta(property="og:image:height", content="640")
-    meta(property="og:site_name", content="ktt")
-    meta(property="og:description", content="今朝はTKGを食べました")
-    meta(property="og:local", content="ja")
-    link(rel="image_src", href="./image/og-image.png")
-    link(rel="shortcut icon", href="./favicon.ico", type="image/x-icon")
-    link(
-      rel="stylesheet",
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap&subset=japanese"
-    )
-    link(
-      rel="apple-touch-icon",
-      sizes="180x180",
-      href="./image/apple-touch-icon.png"
-    )
-    link(rel="stylesheet", href="./style/index.css")
-    link(rel="canonical", href="https://tkg.dskd.jp")
+extends _template
 
-  body#top
-    h1
-      include ./pug/logo.pug
+block main
+  include ./pug/data.pug
+  - const items = [...recent];
 
-    p 今朝はTKGを食べました
-
-    main
-      include ./pug/data.pug
-      - const items = [...recent, ...rest];
-
-      unless items.length
-        p 食べたTKGはありません。
-      each item, i in items
-        -
-          const [year, month, _] = item.images[0].split("-")
-          const id = `list-${year}-${month}`
-        section(id=id)
-          h2
-            a(href=`#${id}`)= item.heading
-          .grid
-            each image in item.images
-              - const [year, month, day] = image.split("-");
-              a.thumb(href=`./image/photo/${image}.jpg`, id=`photo-${image}`)
-                img(
-                  src=`./image/photo/thumb_${image}.jpg`,
-                  alt=`${year}年${Number(month)}月${Number(day)}日に食べたTKG写真のサムネール`,
-                  loading="lazy",
-                  width="168",
-                  height="168"
-                )
-      p
-        a(href="#top") ページの先頭へ
-
-    footer
-      small
-        | Copyright ©︎ oti. Under the
-        |
-        a(href="https://creativecommons.org/licenses/by-nc/4.0/deed.ja") CC BY-NC 4.0
+  unless items.length
+    p 食べたTKGはありません。
+  each item, i in items
+    -
+      const [year, month, _] = item.images[0].split("-")
+      const id = `_${year}${month}`
+    section(id=id)
+      h2
+        a(href=`#${id}`)= item.heading
+      .grid
+        each image in item.images
+          - const [year, month, day] = image.split("-");
+          a.thumb(href=`./image/photo/${image}.jpg`, id=`photo-${image}`)
+            img(
+              src=`./image/photo/thumb_${image}.jpg`,
+              alt=`${year}年${Number(month)}月${Number(day)}日に食べたTKG写真のサムネール`,
+              loading="lazy",
+              width="168",
+              height="168"
+            )
+  p.extra
+    a(href="all.pug") 全TKG
+    | ｜
+    a(href="grid.pug") グリッド表示
