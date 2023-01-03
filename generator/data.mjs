@@ -1,6 +1,9 @@
 import fs from "fs";
+import { getParsedJSON } from "../utility/getParsedJSON.mjs";
+
+const { name_jp } = getParsedJSON("../package.json");
 const input = process.argv[2] || "src/image/photo/";
-const output = process.argv[3] || "src/pug/data.pug";
+const output = process.argv[3] || ".pugrc";
 
 const files = fs.readdirSync(input).filter((v) => {
   return /.+\.jpg$/.test(v) && !/^thumb/.test(v);
@@ -39,13 +42,18 @@ const generate_data_pug = () => {
     data[index].images.unshift(toBasename(image));
   });
 
-  const [recent1, recent2, recent3, ...rest] = data;
-  const recent = [recent1, recent2, recent3].filter((v) => v);
-  const content = `-
-  const recent = ${JSON.stringify(recent)}
-  const rest = ${JSON.stringify(rest)}\n`;
+  const filteredData = data.filter((v) => v);
+  const [recent1, recent2, recent3, ...rest] = filteredData;
+  const recent = [recent1, recent2, recent3];
+  const pugrc = {
+    locals: {
+      site: name_jp,
+      recent,
+      rest,
+    },
+  };
 
-  fs.writeFileSync(output, content, (err) => {
+  fs.writeFileSync(output, JSON.stringify(pugrc), (err) => {
     if (err) throw err;
   });
 };
