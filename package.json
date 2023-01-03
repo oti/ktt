@@ -13,8 +13,8 @@
     "start": "parcel src/**/*.pug --open --no-cache",
     "test": "npm run lint-css && npm run lint-html",
     "prepare": "husky install",
-    "update-data": "node generator/data.js",
-    "update-photo": "node generator/photo.js"
+    "update-data": "node generator/data.mjs",
+    "update-photo": "node generator/photo.mjs"
   },
   "devDependencies": {
     "@parcel/transformer-pug": "^2.8.2",
