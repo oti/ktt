@@ -138,3 +138,7 @@ footer {
   padding: 0;
   width: 100%;
 }
+
+.extra {
+  margin-top: calc(var(--commonPad) * 5);
+}
