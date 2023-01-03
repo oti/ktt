@@ -1,5 +1,5 @@
-const fs = require("fs");
-const sharp = require("sharp");
+import fs from "fs";
+import sharp from "sharp";
 
 const inputDir = process.argv[2] || "src/image/photo-original/";
 const outputDir = process.argv[3] || "src/image/photo/";
