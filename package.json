@@ -11,7 +11,7 @@
     "lint-css": "stylelint dist/*.css",
     "lint-html": "markuplint dist/*.html --ruleset ./markuplintrc",
     "prettier": "prettier --write .",
-    "start": "parcel src/**/*.pug --open --no-cache",
+    "start": "parcel src/*.pug --open --no-cache",
     "test": "npm run lint-css && npm run lint-html",
     "prepare": "husky install",
     "update-data": "node generator/data.mjs",
