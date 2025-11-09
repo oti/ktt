@@ -7,6 +7,7 @@
   "author": "oti",
   "license": "CC BY-NC 4.0",
   "scripts": {
+    "auto-update": "npm run update-photo && npm run update-data && git add . && git commit -m 'feat: 今朝はTKGを食べました' && git push",
     "build": "parcel build src/*.pug --no-optimize --no-source-maps --public-url ./",
     "lint-css": "stylelint dist/*.css",
     "lint-html": "markuplint dist/*.html --ruleset ./markuplintrc",
@@ -15,8 +16,7 @@
     "test": "npm run lint-css && npm run lint-html",
     "prepare": "husky install",
     "update-data": "node generator/data.mjs",
-    "update-photo": "node generator/photo.mjs",
-    "update": "npm run update-photo && npm run update-data && git add . && git commit -m 'feat: 今朝はTKGを食べました'"
+    "update-photo": "node generator/photo.mjs"
   },
   "devDependencies": {
     "@parcel/transformer-pug": "^2.15.4",
