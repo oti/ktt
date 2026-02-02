@@ -31,8 +31,5 @@
     "sharp": "^0.34.3",
     "stylelint": "^16.23.1",
     "stylelint-config-recommended": "^17.0.0"
-  },
-  "volta": {
-    "node": "20.11.1"
   }
 }
