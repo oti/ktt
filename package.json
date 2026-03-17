@@ -27,7 +27,7 @@
     "parcel": "^2.16.4",
     "prettier": "^3.8.1",
     "pretty-quick": "^4.2.2",
-    "pug": "^3.0.3",
+    "pug": "^3.0.4",
     "sharp": "^0.34.5",
     "stylelint": "^17.4.0",
     "stylelint-config-recommended": "^18.0.0"
