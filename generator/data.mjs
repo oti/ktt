@@ -37,7 +37,7 @@ const generate_data_pug = () => {
 
   files.forEach((image) => {
     const index = data.findIndex(
-      (items) => items.heading === toHeadingString(image)
+      (items) => items.heading === toHeadingString(image),
     );
     data[index].images.unshift(toBasename(image));
   });

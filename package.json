@@ -1,11 +1,10 @@
 {
-  "private": true,
   "name": "ktt",
-  "name_jp": "今朝はTKGを食べました。",
   "version": "3.5.1",
+  "private": true,
   "description": "「今朝はTKGを食べました」を一覧できるウェブサイト",
-  "author": "oti",
   "license": "CC BY-NC 4.0",
+  "author": "oti",
   "scripts": {
     "auto-update": "npm run update-photo && npm run update-data && git add . && git commit -m 'feat: 今朝はTKGを食べました' && git push",
     "build": "parcel build src/*.pug --no-optimize --no-source-maps --public-url ./",
@@ -29,5 +28,6 @@
     "sharp": "^0.34.5",
     "stylelint": "^17.8.0",
     "stylelint-config-recommended": "^18.0.0"
-  }
+  },
+  "name_jp": "今朝はTKGを食べました。"
 }
