@@ -21,15 +21,15 @@
   "devDependencies": {
     "@parcel/transformer-pug": "^2.16.4",
     "@prettier/plugin-pug": "^3.4.2",
-    "autoprefixer": "^10.4.27",
+    "autoprefixer": "^10.5.0",
     "husky": "^9.1.7",
     "markuplint": "^4.14.1",
     "parcel": "^2.16.4",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.3",
     "pretty-quick": "^4.2.2",
     "pug": "^3.0.4",
     "sharp": "^0.34.5",
-    "stylelint": "^17.4.0",
+    "stylelint": "^17.8.0",
     "stylelint-config-recommended": "^18.0.0"
   }
 }
