@@ -6,15 +6,16 @@
   "license": "CC BY-NC 4.0",
   "author": "oti",
   "scripts": {
-    "auto-update": "npm run update-photo && npm run update-data && git add . && git commit -m 'feat: 今朝はTKGを食べました' && git push",
-    "build": "parcel build src/*.pug --no-optimize --no-source-maps --public-url ./",
-    "lint-css": "stylelint dist/*.css",
-    "lint-html": "markuplint dist/*.html --ruleset ./markuplintrc",
-    "prettier": "prettier --write .",
-    "start": "parcel src/*.pug --open --no-cache",
-    "test": "npm run lint-css && npm run lint-html",
-    "update-data": "node generator/data.mjs",
-    "update-photo": "node generator/photo.mjs"
+    "clean": "rm -rf dist && mkdir dist",
+    "cp:favicon": "cp -r src/favicon.ico dist/favicon.ico",
+    "cp:image": "cp -rv src/image/ dist/image/",
+    "cp:style": "cp -r src/style/ dist/style/",
+    "prebuild": "npm run clean && npm run cp:favicon && npm run cp:style && npm run cp:image",
+    "build": "pug src -o dist -O .pugrc -P",
+    "postbuild": "rm -rf dist/pug/",
+    "start": "npm run build && cd dist && python3 -m http.server 3000",
+    "update:data": "node generator/data.mjs",
+    "update:photo": "node generator/photo.mjs"
   },
   "devDependencies": {
     "pug-cli": "^1.0.0-alpha6",
