@@ -10,14 +10,12 @@
     "cp:favicon": "cp -r src/favicon.ico dist/favicon.ico",
     "cp:image": "cp -rv src/image/ dist/image/",
     "cp:style": "cp -r src/style/ dist/style/",
-    "prebuild": "npm run clean",
-    "build": "npm run update && npm run cp:favicon && npm run cp:style && npm run cp:image && pug src -o dist -O .pugrc -P",
-    "postbuild": "rm -rf dist/pug/ && rm -rf dist/image/photo-original",
+    "build": "npm run clean && npm run cp:favicon && npm run cp:style && npm run cp:image && pug src -o dist -O .pugrc -P",
+    "postbuild": "rm -rf dist/pug",
     "serve": "cd dist && python3 -m http.server 3000",
-    "start": "npm run build && npm run serve",
-    "update": "npm run update:photo && npm run update:data",
-    "update:data": "node generator/data.mjs",
-    "update:photo": "node generator/photo.mjs"
+    "start": "npm run update-photo && npm run update-data && npm run build && npm run serve",
+    "update-data": "node generator/data.mjs",
+    "update-photo": "node generator/photo.mjs"
   },
   "devDependencies": {
     "pug-cli": "^1.0.0-alpha6",
