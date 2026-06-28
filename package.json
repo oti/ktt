@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "pug-cli": "^1.0.0-alpha6",
-    "sharp": "^0.35.1"
+    "sharp": "^0.35.2"
   },
   "name_jp": "今朝はTKGを食べました。"
 }
