@@ -1,13 +1,13 @@
-import { readFileSync } from "fs";
+import { readFile } from "fs/promises";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export const getParsedJSON = (filepath) => {
+export const getParsedJSON = async (filepath) => {
   try {
-    return JSON.parse(readFileSync(resolve(__dirname, filepath), "utf8"));
+    return JSON.parse(await readFile(resolve(__dirname, filepath), "utf8"));
   } catch (e) {
     console.error(e);
   }
