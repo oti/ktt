@@ -7,6 +7,7 @@
   "author": "oti",
   "scripts": {
     "clean": "rm -rf dist && mkdir dist",
+    "convert2jpg": "./generator/convert2jpg.sh",
     "cp:favicon": "cp -r src/favicon.ico dist/favicon.ico",
     "cp:image": "cp -rv src/image/ dist/image/",
     "cp:style": "cp -r src/style/ dist/style/",
