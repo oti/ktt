@@ -13,13 +13,14 @@
     "build": "npm run clean && npm run cp:favicon && npm run cp:style && npm run cp:image && pug src -o dist -O .pugrc -P",
     "postbuild": "rm -rf dist/pug",
     "serve": "cd dist && python3 -m http.server 3000",
-    "start": "npm run update-photo && npm run update-data && npm run build && npm run serve",
-    "update-data": "node generator/data.mjs",
-    "update-photo": "node generator/photo.mjs"
+    "start": "npm run update:photo && npm run update:data && npm run build && npm run serve",
+    "update": "npm run update:photo && npm run update:data && npm run build",
+    "update:data": "node generator/data.mjs",
+    "update:photo": "node generator/photo.mjs"
   },
   "devDependencies": {
     "pug-cli": "^1.0.0-alpha6",
-    "sharp": "^0.35.2"
+    "sharp": "^0.35.3"
   },
   "name_jp": "今朝はTKGを食べました。"
 }
