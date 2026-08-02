@@ -1,48 +1,46 @@
-import fs from "fs";
+import fs from "fs/promises";
 import sharp from "sharp";
 
 const inputDir = process.argv[2] || "src/image/photo-original/";
 const outputDir = process.argv[3] || "src/image/photo/";
 
-const images = fs.readdirSync(inputDir).filter((v) => {
-  return /.+\.jpg$/.test(v);
-});
+const images = (await fs.readdir(inputDir)).filter((v) => /.+\.jpg$/.test(v));
 
-const convert = () => {
-  images.forEach((image) => {
-    // スペースが含まれているファイル名なので決め打ちで作る
-    const fileBasename = image.split(" ")[0];
+const generate = (image, output, convert) => convert(sharp(`${inputDir}${image}`)).toFile(output);
 
-    sharp(`${inputDir}${image}`)
-      .resize({ width: 1280 })
-      .jpeg({ quality: 70 })
-      .toFile(`${outputDir}${fileBasename}.jpg`)
-      .then(() => {
-        console.log(`${outputDir}${fileBasename}.jpg has been saved!`);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  });
-};
+await (() =>
+  Promise.all(
+    images.map(async (image) => {
+      // スペースが含まれているファイル名なので決め打ちで作る
+      const basename = image.split(" ")[0];
 
-const convertThumb = () => {
-  images.forEach((image) => {
-    // スペースが含まれているファイル名なので決め打ちで作る
-    const fileBasename = image.split(" ")[0];
+      try {
+        await Promise.all(
+          [
+            {
+              prefix: "",
+              convert: (image) => image.resize({ width: 1280 }).jpeg({ quality: 70 }),
+            },
+            {
+              prefix: "thumb_",
+              convert: (image) =>
+                image.resize({ width: 336, height: 336, fit: "cover" }).jpeg({ quality: 30 }),
+            },
+          ].map(({ prefix, convert }) =>
+            generate(image, `${outputDir}${prefix}${basename}.jpg`, convert),
+          ),
+        );
 
-    sharp(`${inputDir}${image}`)
-      .resize({ width: 336, height: 336, fit: "cover" })
-      .jpeg({ quality: 30 })
-      .toFile(`${outputDir}thumb_${fileBasename}.jpg`)
-      .then(() => {
-        console.log(`${outputDir}thumb_${fileBasename}.jpg has been saved!`);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  });
-};
-
-convert();
-convertThumb();
+        console.log(`${basename}.jpg done!`);
+      } catch (err) {
+        console.error(`SKIP: ${inputDir}${image}`);
+        if (String(err.message).includes("header: heif")) {
+          console.error(
+            "JPGEの中身がHEICになっています。 `npm run convert2jpg` を実行してください。",
+          );
+        } else {
+          console.error(err.message);
+        }
+      }
+    }),
+  ))();
