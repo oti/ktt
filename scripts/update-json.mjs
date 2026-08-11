@@ -1,9 +1,7 @@
 import fs from "fs/promises";
-import { getParsedJSON } from "../utility/getParsedJSON.mjs";
 
-const { name_jp } = await getParsedJSON("../package.json");
 const input = process.argv[2] || "src/image/photo/";
-const output = process.argv[3] || ".pugrc";
+const output = process.argv[3] || "src/photo.json";
 
 const filenames = (await fs.readdir(input))
   .filter((v) => /.+\.jpg$/.test(v) && !/^thumb/.test(v))
@@ -35,11 +33,8 @@ await (async () => {
     [{ heading: "2013年11月", images: [] }],
   );
 
-  const pugrc = {
-    site: name_jp,
+  await fs.writeFile(output, JSON.stringify({
     recent: [recent1, recent2, recent3],
     rest,
-  };
-
-  await fs.writeFile(output, JSON.stringify(pugrc));
+  }));
 })();

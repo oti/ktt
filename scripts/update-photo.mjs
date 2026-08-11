@@ -36,7 +36,7 @@ await (() =>
         console.error(`SKIP: ${inputDir}${image}`);
         if (String(err.message).includes("header: heif")) {
           console.error(
-            "JPGEの中身がHEICになっています。 `npm run convert2jpg` を実行してください。",
+            "JPGEの中身がHEICになっています。`npm run convert2jpg` を実行してください。",
           );
         } else {
           console.error(err.message);

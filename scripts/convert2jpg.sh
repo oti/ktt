@@ -31,4 +31,4 @@ for file in "$dir"/*.jpg; do
   fi
 done
 
-echo "done: ${converted} converted, ${failed} failed"
+echo "done. (converted: ${converted} / failed: ${failed})"
