@@ -3,13 +3,23 @@
 # 拡張子は .jpg でも中身が JPEG ではない画像を、その場で JPEG に変換する（macOS 専用）
 # sharp (libheif) が読めない HEIC などが混ざったときに使う
 #
-#   ./generator/convert2jpg.sh [対象ディレクトリ]
+#   npm run convert2jpg -- [対象ディレクトリ]
 #
 set -euo pipefail
+
+# マッチしない glob を literal な文字列として渡さない
+shopt -s nullglob
 
 dir="${1:-src/image/photo-original}"
 converted=0
 failed=0
+
+if [ ! -d "$dir" ]; then
+  echo "対象ディレクトリがありません: $dir" >&2
+  exit 1
+fi
+
+echo "proccessing..."
 
 for file in "$dir"/*.jpg; do
   mime="$(file -b --mime-type "$file")"
@@ -32,3 +42,7 @@ for file in "$dir"/*.jpg; do
 done
 
 echo "done. (converted: ${converted} / failed: ${failed})"
+
+if [ "$failed" -gt 0 ]; then
+  exit 1
+fi

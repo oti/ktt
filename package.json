@@ -6,7 +6,7 @@
   "license": "CC BY-NC 4.0",
   "author": "oti",
   "scripts": {
-    "convert2jpg": "sh scripts/convert2jpg.sh",
+    "convert2jpg": "scripts/convert2jpg.sh",
     "build": "node scripts/build.mjs",
     "serve": "cd dist && python3 -m http.server 3000",
     "start": "npm run update && npm run serve",
