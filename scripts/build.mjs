@@ -5,8 +5,18 @@ import { getParsedJSON } from "./utility/getParsedJSON.mjs";
 const inputDir = process.argv[2] || "src/html/";
 const outputDir = process.argv[3] || "dist/";
 
-const photo = await getParsedJSON("../../src/photo.json");
-const { name_jp: site } = await getParsedJSON("../../package.json");
+// 読めなかったらレンダリングまで進まずに終了する
+const exitWithError = (message) => {
+  console.error(message);
+  process.exit(1);
+};
+
+const photo = await getParsedJSON("src/photo.json").catch((err) =>
+  exitWithError(`${err.message}\n  npm run update:json で生成してください。`),
+);
+const { name_jp: site } = await getParsedJSON("package.json").catch((err) =>
+  exitWithError(err.message),
+);
 
 // コピーするもの [コピー元, コピー先]
 const assets = [

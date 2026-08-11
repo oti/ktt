@@ -1,14 +1,11 @@
 import { readFile } from "fs/promises";
-import { dirname, resolve } from "path";
-import { fileURLToPath } from "url";
+import { resolve } from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+// filepath は他のスクリプトの引数と同じく、実行時のカレントディレクトリ基準で解決する
 export const getParsedJSON = async (filepath) => {
   try {
-    return JSON.parse(await readFile(resolve(__dirname, filepath), "utf8"));
+    return JSON.parse(await readFile(resolve(filepath), "utf8"));
   } catch (e) {
-    console.error(e);
+    throw new Error(`JSONを読み込めませんでした: ${filepath}\n  ${e.message}`, { cause: e });
   }
 };
