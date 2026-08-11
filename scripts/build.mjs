@@ -18,16 +18,28 @@ const exitWithError = (message) => {
 const layout = await fs.readFile(layoutFile, "utf8").catch((err) => exitWithError(err.message));
 
 // base.html の ${値} を差し替える。式は書けない
-const render = (template, values) =>
-  template.replace(/\$\{(\w+)\}/g, (matched, key) => {
+const render = (values) =>
+  layout.replace(/\$\{(\w+)\}/g, (matched, key) => {
     if (!(key in values)) throw new Error(`${layoutFile} に未知の値があります: ${matched}`);
 
     return values[key];
   });
 
-// 写真1枚分のサムネール。image は "YYYY-MM-DD"
-const thumb = (image) => {
+// base.html の ${main} 行の字下げに合わせて、2行目以降を下げる
+const mainIndent = layout.match(/^[ \t]*(?=\$\{main\})/m)?.[0] ?? "";
+
+const indent = (html) => html.split("\n").join(`\n${mainIndent}`);
+
+// "YYYY-MM-DD" をばらす
+const toDate = (image) => {
   const [year, month, day] = image.split("-");
+
+  return { year, month, day };
+};
+
+// 写真1枚分のサムネール
+const thumb = (image) => {
+  const { year, month, day } = toDate(image);
   const alt = `${year}年${Number(month)}月${Number(day)}日に食べたTKG写真のサムネール`;
 
   return `<a class="thumb" href="./image/photo/${image}.jpg" id="photo-${image}"><img src="./image/photo/thumb_${image}.jpg" alt="${alt}" loading="lazy" width="168" height="168"></a>`;
@@ -35,12 +47,7 @@ const thumb = (image) => {
 
 const thumbs = (images) => images.map(thumb).join("");
 
-// main に入れる HTML は base.html の <main> に合わせて6スペース下げる
-const indent = (html) =>
-  html
-    .split("\n")
-    .map((line) => `      ${line}`)
-    .join("\n");
+const extra = (inner) => `<p class="extra">${inner}</p>`;
 
 const empty = "<p>食べたTKGはありません。</p>";
 
@@ -50,7 +57,8 @@ const months = (items, sectionId) =>
     ? empty
     : items
         .map((item) => {
-          const id = sectionId(...item.images[0].split("-"));
+          const { year, month } = toDate(item.images[0]);
+          const id = sectionId(year, month);
 
           return [
             `<section id="${id}">`,
@@ -71,7 +79,7 @@ const grid = (items) => {
 };
 
 const all = [...recent, ...rest];
-const backToIndex = `<p class="extra"><a href="/">インデックスへ戻る</a></p>`;
+const backToIndex = `<a href="/">インデックスへ戻る</a>`;
 
 // 出力するページ
 const pages = [
@@ -79,17 +87,17 @@ const pages = [
     filename: "index.html",
     main: [
       months(recent, (year, month) => `_${year}${month}`),
-      `<p class="extra"><a href="all.html">全TKG</a>｜<a href="grid.html">グリッド表示</a></p>`,
+      extra(`<a href="all.html">全TKG</a>｜<a href="grid.html">グリッド表示</a>`),
     ].join("\n"),
   },
   {
     filename: "all.html",
-    main: [months(all, (year, month) => `list-${year}-${month}`), backToIndex].join("\n"),
+    main: [months(all, (year, month) => `list-${year}-${month}`), extra(backToIndex)].join("\n"),
   },
   {
     filename: "grid.html",
     bodyClass: "grid-page",
-    main: [grid(all), backToIndex].join("\n"),
+    main: [grid(all), extra(backToIndex)].join("\n"),
   },
 ];
 
@@ -110,8 +118,7 @@ await Promise.all(assets.map(([from, to]) => fs.cp(from, to, { recursive: true }
 await Promise.all(
   pages.map(async ({ filename, bodyClass = "", main }) => {
     const bodyAttribute = bodyClass ? ` class="${bodyClass}"` : "";
-
-    const html = render(layout, { site, bodyAttribute, main: indent(main) });
+    const html = render({ site, bodyAttribute, main: indent(main) });
 
     await fs.writeFile(join(outputDir, filename), `${html}\n`);
 

@@ -16,25 +16,18 @@ const convert2localYM = (value) =>
     .join("年")
     .concat("月");
 
-await (async () => {
-  // { heading: 'YYYY年MM月', images: ['YYYY-MM-DD', ...] } の形にする
-  const [recent1, recent2, recent3, ...rest] = filenames.reduce(
-    (memo, filename) => {
-      const heading = convert2localYM(filename);
-      const index = memo.findIndex((obj) => obj.heading === heading);
+// { heading: 'YYYY年M月', images: ['YYYY-MM-DD', ...] } の形にする
+const months = filenames.reduce((memo, filename) => {
+  const heading = convert2localYM(filename);
+  const index = memo.findIndex((obj) => obj.heading === heading);
 
-      if (index > -1) {
-        memo[index].images.unshift(filename);
-      } else {
-        memo.unshift({ heading, images: [filename] });
-      }
-      return memo;
-    },
-    [{ heading: "2013年11月", images: [] }],
-  );
+  if (index > -1) {
+    memo[index].images.unshift(filename);
+  } else {
+    memo.unshift({ heading, images: [filename] });
+  }
 
-  await fs.writeFile(output, JSON.stringify({
-    recent: [recent1, recent2, recent3],
-    rest,
-  }));
-})();
+  return memo;
+}, []);
+
+await fs.writeFile(output, JSON.stringify({ recent: months.slice(0, 3), rest: months.slice(3) }));
