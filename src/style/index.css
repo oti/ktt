@@ -68,6 +68,10 @@ body {
   min-height: 100vh;
   font-size: var(--bodyFontSize);
   font-family: "Noto Sans JP", sans-serif;
+
+  &.grid-page {
+    max-width: 100%;
+  }
 }
 
 h1 {

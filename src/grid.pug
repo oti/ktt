@@ -1,5 +1,8 @@
 extends pug/_template
 
+block vars
+  - isGridPage = true
+
 block main
   - const items = [...recent, ...rest];
 
