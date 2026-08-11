@@ -1,10 +1,13 @@
 import fs from "fs/promises";
 import { join } from "path";
-import pug from "pug";
-import { getParsedJSON } from "./utility/getParsedJSON.mjs";
+import photo from "../src/photo.json" with { type: "json" };
 
-const inputDir = process.argv[2] || "src/html";
-const outputDir = process.argv[3] || "dist";
+const { recent, rest } = photo;
+
+const layoutFile = "src/base.html";
+const outputDir = "dist";
+
+const site = "今朝はTKGを食べました。";
 
 // 読めなかったらレンダリングまで進まずに終了する
 const exitWithError = (message) => {
@@ -12,12 +15,83 @@ const exitWithError = (message) => {
   process.exit(1);
 };
 
-const photo = await getParsedJSON("src/photo.json").catch((err) =>
-  exitWithError(`${err.message}\n  npm run update:json で生成してください。`),
-);
-const { name_jp: site } = await getParsedJSON("package.json").catch((err) =>
-  exitWithError(err.message),
-);
+const layout = await fs.readFile(layoutFile, "utf8").catch((err) => exitWithError(err.message));
+
+// base.html の ${値} を差し替える。式は書けない
+const render = (template, values) =>
+  template.replace(/\$\{(\w+)\}/g, (matched, key) => {
+    if (!(key in values)) throw new Error(`${layoutFile} に未知の値があります: ${matched}`);
+
+    return values[key];
+  });
+
+// 写真1枚分のサムネール。image は "YYYY-MM-DD"
+const thumb = (image) => {
+  const [year, month, day] = image.split("-");
+  const alt = `${year}年${Number(month)}月${Number(day)}日に食べたTKG写真のサムネール`;
+
+  return `<a class="thumb" href="./image/photo/${image}.jpg" id="photo-${image}"><img src="./image/photo/thumb_${image}.jpg" alt="${alt}" loading="lazy" width="168" height="168"></a>`;
+};
+
+const thumbs = (images) => images.map(thumb).join("");
+
+// main に入れる HTML は base.html の <main> に合わせて6スペース下げる
+const indent = (html) =>
+  html
+    .split("\n")
+    .map((line) => `      ${line}`)
+    .join("\n");
+
+const empty = "<p>食べたTKGはありません。</p>";
+
+// 月ごとに見出しを付けて並べる。sectionId は id の付け方がページで違うので受け取る
+const months = (items, sectionId) =>
+  items.length === 0
+    ? empty
+    : items
+        .map((item) => {
+          const id = sectionId(...item.images[0].split("-"));
+
+          return [
+            `<section id="${id}">`,
+            `  <h2><a href="#${id}">${item.heading}</a></h2>`,
+            `  <div class="grid">${thumbs(item.images)}</div>`,
+            `</section>`,
+          ].join("\n");
+        })
+        .join("\n");
+
+// 見出しなしで全部並べる
+const grid = (items) => {
+  const images = items.flatMap((item) => item.images);
+
+  return images.length === 0
+    ? empty
+    : ["<section>", `  <div class="grid">${thumbs(images)}</div>`, "</section>"].join("\n");
+};
+
+const all = [...recent, ...rest];
+const backToIndex = `<p class="extra"><a href="/">インデックスへ戻る</a></p>`;
+
+// 出力するページ
+const pages = [
+  {
+    filename: "index.html",
+    main: [
+      months(recent, (year, month) => `_${year}${month}`),
+      `<p class="extra"><a href="all.html">全TKG</a>｜<a href="grid.html">グリッド表示</a></p>`,
+    ].join("\n"),
+  },
+  {
+    filename: "all.html",
+    main: [months(all, (year, month) => `list-${year}-${month}`), backToIndex].join("\n"),
+  },
+  {
+    filename: "grid.html",
+    bodyClass: "grid-page",
+    main: [grid(all), backToIndex].join("\n"),
+  },
+];
 
 // コピーするもの [コピー元, コピー先]
 const assets = [
@@ -33,24 +107,14 @@ await fs.mkdir(outputDir, { recursive: true });
 // アセットをコピーする
 await Promise.all(assets.map(([from, to]) => fs.cp(from, to, { recursive: true })));
 
-// src/html/ 直下の .pug だけをコンパイルする（src/pug/ のテンプレートは対象外）
-const pages = (await fs.readdir(inputDir)).filter((v) => /\.pug$/.test(v));
-
 await Promise.all(
-  pages.map(async (page) => {
-    const filename = page.replace(/\.pug$/, ".html");
+  pages.map(async ({ filename, bodyClass = "", main }) => {
+    const bodyAttribute = bodyClass ? ` class="${bodyClass}"` : "";
 
-    try {
-      await fs.writeFile(
-        join(outputDir, filename),
-        pug.renderFile(join(inputDir, page), { ...photo, site, pretty: true }),
-      );
+    const html = render(layout, { site, bodyAttribute, main: indent(main) });
 
-      console.log(`${filename} done!`);
-    } catch (err) {
-      console.error(`FAILED: ${join(inputDir, page)}`);
-      console.error(err.message);
-      process.exitCode = 1;
-    }
+    await fs.writeFile(join(outputDir, filename), `${html}\n`);
+
+    console.log(`${filename} done!`);
   }),
 );

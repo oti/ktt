@@ -15,8 +15,6 @@
     "update:photo": "node scripts/update-photo.mjs"
   },
   "devDependencies": {
-    "pug": "^3.0.4",
     "sharp": "^0.35.3"
-  },
-  "name_jp": "今朝はTKGを食べました。"
+  }
 }

@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 
-const input = process.argv[2] || "src/image/photo";
-const output = process.argv[3] || "src/photo.json";
+const input = "src/image/photo";
+const output = "src/photo.json";
 
 const filenames = (await fs.readdir(input))
   .filter((v) => /.+\.jpg$/.test(v) && !/^thumb/.test(v))
