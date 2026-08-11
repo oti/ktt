@@ -1,0 +1,12 @@
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # .node-version と揃えること。JSON の import で 22.12 以上が必要
+  NODE_VERSION = "26.5.0"
+  # sharp は手元で写真を変換するときにしか使わない。
+  # ビルドは Node 標準機能だけで動くので devDependencies を入れない
+  NPM_FLAGS = "--omit=dev"
