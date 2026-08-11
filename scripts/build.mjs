@@ -1,9 +1,10 @@
 import fs from "fs/promises";
+import { join } from "path";
 import pug from "pug";
 import { getParsedJSON } from "./utility/getParsedJSON.mjs";
 
-const inputDir = process.argv[2] || "src/html/";
-const outputDir = process.argv[3] || "dist/";
+const inputDir = process.argv[2] || "src/html";
+const outputDir = process.argv[3] || "dist";
 
 // 読めなかったらレンダリングまで進まずに終了する
 const exitWithError = (message) => {
@@ -20,9 +21,9 @@ const { name_jp: site } = await getParsedJSON("package.json").catch((err) =>
 
 // コピーするもの [コピー元, コピー先]
 const assets = [
-  ["src/favicon.ico", `${outputDir}favicon.ico`],
-  ["src/style/", `${outputDir}style/`],
-  ["src/image/", `${outputDir}image/`],
+  ["src/favicon.ico", join(outputDir, "favicon.ico")],
+  ["src/style", join(outputDir, "style")],
+  ["src/image", join(outputDir, "image")],
 ];
 
 // 出力先を作り直す
@@ -41,13 +42,13 @@ await Promise.all(
 
     try {
       await fs.writeFile(
-        `${outputDir}${filename}`,
-        pug.renderFile(`${inputDir}${page}`, { ...photo, site, pretty: true }),
+        join(outputDir, filename),
+        pug.renderFile(join(inputDir, page), { ...photo, site, pretty: true }),
       );
 
       console.log(`${filename} done!`);
     } catch (err) {
-      console.error(`FAILED: ${inputDir}${page}`);
+      console.error(`FAILED: ${join(inputDir, page)}`);
       console.error(err.message);
       process.exitCode = 1;
     }

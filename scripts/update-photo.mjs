@@ -1,12 +1,13 @@
 import fs from "fs/promises";
+import { join } from "path";
 import sharp from "sharp";
 
-const inputDir = process.argv[2] || "src/image/photo-original/";
-const outputDir = process.argv[3] || "src/image/photo/";
+const inputDir = process.argv[2] || "src/image/photo-original";
+const outputDir = process.argv[3] || "src/image/photo";
 
 const images = (await fs.readdir(inputDir)).filter((v) => /.+\.jpg$/.test(v));
 
-const generate = (image, output, convert) => convert(sharp(`${inputDir}${image}`)).toFile(output);
+const generate = (image, output, convert) => convert(sharp(join(inputDir, image))).toFile(output);
 
 await (() =>
   Promise.all(
@@ -27,13 +28,13 @@ await (() =>
                 image.resize({ width: 336, height: 336, fit: "cover" }).jpeg({ quality: 30 }),
             },
           ].map(({ prefix, convert }) =>
-            generate(image, `${outputDir}${prefix}${basename}.jpg`, convert),
+            generate(image, join(outputDir, `${prefix}${basename}.jpg`), convert),
           ),
         );
 
         console.log(`${basename}.jpg done!`);
       } catch (err) {
-        console.error(`SKIP: ${inputDir}${image}`);
+        console.error(`SKIP: ${join(inputDir, image)}`);
         if (String(err.message).includes("header: heif")) {
           console.error(
             "JPGEの中身がHEICになっています。`npm run convert2jpg` を実行してください。",

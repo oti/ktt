@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 
-const input = process.argv[2] || "src/image/photo/";
+const input = process.argv[2] || "src/image/photo";
 const output = process.argv[3] || "src/photo.json";
 
 const filenames = (await fs.readdir(input))
