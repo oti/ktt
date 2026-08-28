@@ -15,6 +15,6 @@
     "update:photo": "node scripts/update-photo.mjs"
   },
   "devDependencies": {
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.4"
   }
 }
